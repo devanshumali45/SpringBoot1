@@ -1,5 +1,8 @@
 package com.assignment.demo.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,13 +12,19 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
+
     @Column(name="name")
     private String name;
+
     @Column(name = "description")
     private String description;
 
     @Column(name = "expiry_date")
     private String expiryDate;
+
+    @ManyToMany
+    private List<Order> order=new ArrayList<>();
+    
 
 
 

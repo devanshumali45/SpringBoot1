@@ -1,5 +1,8 @@
 package com.assignment.demo.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,26 +13,29 @@ public class Order {
     @Column(name="id")
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
     @Column(name="qty")
     private int qty;
+
     @Column(name="selling_price")
     private double sellingPrice;
+
     @Column(name="purchase_price")
     private double purchasePrice;
+
     @Column(name = "total_amount")
     private double totalAmount;
+
     @Column(name="grand_total")
     private double grandTotal;
+
+    @ManyToMany(mappedBy = "order",cascade = CascadeType.ALL)
+    private List<Product> products = new ArrayList<>();
 
     public Order() {
     }
 
-    public Order(int id, Product product, int qty, double sellingPrice, double purchasePrice, double totalAmount, double grandTotal) {
+    public Order(int id, int qty, double sellingPrice, double purchasePrice, double totalAmount, double grandTotal) {
         this.id = id;
-        this.product = product;
         this.qty = qty;
         this.sellingPrice = sellingPrice;
         this.purchasePrice = purchasePrice;
@@ -45,13 +51,9 @@ public class Order {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
-    }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+
+
 
     public int getQty() {
         return qty;
@@ -97,12 +99,12 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", product=" + product +
                 ", qty=" + qty +
                 ", sellingPrice=" + sellingPrice +
                 ", purchasePrice=" + purchasePrice +
                 ", totalAmount=" + totalAmount +
                 ", grandTotal=" + grandTotal +
+                ", products=" + products +
                 '}';
     }
 }
