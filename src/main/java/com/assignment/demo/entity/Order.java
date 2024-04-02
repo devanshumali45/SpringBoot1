@@ -28,8 +28,8 @@ public class Order {
     @Column(name="grand_total")
     private double grandTotal;
 
-    @ManyToMany(mappedBy = "order",cascade = CascadeType.ALL)
-    private List<Product> products = new ArrayList<>();
+    @OneToOne
+    private Product product;
 
     public Order() {
     }
@@ -95,6 +95,14 @@ public class Order {
         this.grandTotal = grandTotal;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -104,7 +112,7 @@ public class Order {
                 ", purchasePrice=" + purchasePrice +
                 ", totalAmount=" + totalAmount +
                 ", grandTotal=" + grandTotal +
-                ", products=" + products +
+                ", products=" + product +
                 '}';
     }
 }

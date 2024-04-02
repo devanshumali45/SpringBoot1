@@ -3,6 +3,7 @@ package com.assignment.demo.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,9 +22,9 @@ public class Product {
 
     @Column(name = "expiry_date")
     private String expiryDate;
-
-    @ManyToMany
-    private List<Order> order=new ArrayList<>();
+    @JsonIgnore
+    @OneToOne(mappedBy = "product")
+    private Order order;
     
 
 
@@ -67,6 +68,14 @@ public class Product {
 
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
